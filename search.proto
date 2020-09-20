@@ -5,7 +5,6 @@ package grpc;
 message SearchRequest {
     string name = 1;
     string category = 2;
-    string owner = 3;
 }
 
 message Item {

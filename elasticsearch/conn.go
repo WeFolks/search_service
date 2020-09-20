@@ -1,10 +1,19 @@
-package elastic
+package elasticsearch
 
 import (
 	"fmt"
 
 	elastic "github.com/olivere/elastic/v7"
 )
+
+//Model - Document to be stored in index
+type Model struct {
+	ID       string `json:"id"`
+	Name     string `json:"name"`
+	IsEvent  int    `json:"isEvent"`
+	Category string `json:"category,omitempty"`
+	Owner    string `json:"owner,omitempty"`
+}
 
 // GetESClient - gives the connection to elastic search server
 func GetESClient() (*elastic.Client, error) {

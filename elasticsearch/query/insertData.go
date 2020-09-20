@@ -4,26 +4,18 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"search_searvice/elasticsearch"
 
-	"github.com/olivere/elastic"
+	elastic "github.com/olivere/elastic/v7"
 )
 
-//Model - Document to be stored in index
-type Model struct {
-	ID       string `json:"id"`
-	Name     string `json:"name"`
-	IsEvent  int    `json:"isEvent"`
-	Category string `json:"category,omitempty"`
-	Owner    string `json:"owner,omitempty"`
-}
-
-func insertData(ctx context.Context, esclient *elastic.Client, name, id, category, owner string) {
+func insertData(ctx context.Context, esclient *elastic.Client, name, id, category, owner string) error {
 	var isEvent int
 	if category != "" {
 		isEvent = 1
 	}
 
-	newEntry := Model{
+	newEntry := elasticsearch.Model{
 		ID:       id,
 		Name:     name,
 		Category: category,
@@ -36,7 +28,10 @@ func insertData(ctx context.Context, esclient *elastic.Client, name, id, categor
 	_, err = esclient.Index().Index("search_data").BodyJson(js).Do(ctx)
 
 	if err != nil {
-		panic(err)
+		return err
 	}
+
 	fmt.Println("[Elastic][InsertProduct]Insertion Successful")
+
+	return nil
 }
