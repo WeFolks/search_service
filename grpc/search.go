@@ -2,8 +2,9 @@ package grpc
 
 import (
 	context "context"
-	"search_searvice/elasticsearch"
-	"search_searvice/elasticsearch/query"
+
+	"github.com/WeFolks/search_service/elasticsearch"
+	"github.com/WeFolks/search_service/elasticsearch/query"
 )
 
 //Server - an interface

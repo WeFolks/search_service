@@ -3,7 +3,8 @@ package query
 import (
 	"context"
 	"encoding/json"
-	"search_searvice/elasticsearch"
+
+	"github.com/WeFolks/search_service/elasticsearch"
 
 	elastic "github.com/olivere/elastic/v7"
 )

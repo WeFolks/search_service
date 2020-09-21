@@ -4,7 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"search_searvice/elasticsearch"
+
+	"github.com/WeFolks/search_service/elasticsearch"
 
 	elastic "github.com/olivere/elastic/v7"
 )
