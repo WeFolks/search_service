@@ -40,3 +40,32 @@ func (s *Server) GetItems(ctx context.Context, message *SearchRequest) (*SearchR
 
 	return &SearchResponse{Items: items}, nil
 }
+
+//AddItem - rpc function to insert data in elastic search
+func (s *Server) AddItem(ctx context.Context, message *Item) (*Response, error) {
+	client, err := elasticsearch.GetESClient()
+
+	if err != nil {
+		response := Response{
+			Error: 1,
+		}
+
+		return &response, err
+	}
+
+	err = query.InsertData(ctx, client, message.Name, message.Id, message.Category, message.Owner)
+
+	if err != nil {
+		response := Response{
+			Error: 1,
+		}
+
+		return &response, err
+	}
+
+	response := Response{
+		Error: 0,
+	}
+
+	return &response, nil
+}

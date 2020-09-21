@@ -9,7 +9,8 @@ import (
 	elastic "github.com/olivere/elastic/v7"
 )
 
-func insertData(ctx context.Context, esclient *elastic.Client, name, id, category, owner string) error {
+//InsertData - function to insert data into elastic database
+func InsertData(ctx context.Context, esclient *elastic.Client, name, id, category, owner string) error {
 	var isEvent int
 	if category != "" {
 		isEvent = 1
