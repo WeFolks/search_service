@@ -1,4 +1,4 @@
-module search_searvice
+module github.com/WeFolks/search_service
 
 go 1.14
 
