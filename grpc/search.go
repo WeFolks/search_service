@@ -32,7 +32,7 @@ func (s *Server) GetItems(ctx context.Context, message *SearchRequest) (*SearchR
 			Name:     element.Name,
 			Category: element.Category,
 			Owner:    element.Owner,
-			IsEvent:  int32(element.IsEvent),
+			Type:     int32(element.Type),
 		}
 
 		items = append(items, &item)
@@ -54,7 +54,7 @@ func (s *Server) AddItem(ctx context.Context, message *Item) (*Response, error) 
 		return &response, err
 	}
 
-	err = query.InsertData(ctx, client, message.Name, message.Id, message.Category, message.Owner)
+	err = query.InsertData(ctx, client, message.Name, message.Id, message.Category, message.Owner, int(message.Type))
 
 	if err != nil {
 		response := Response{

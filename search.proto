@@ -12,7 +12,7 @@ message Item {
     string name = 2;
     string category = 3;
     string owner = 4;
-    int32 isEvent = 5;
+    int32 type = 5;
 }
 
 message SearchResponse {

@@ -10,7 +10,7 @@ import (
 type Model struct {
 	ID       string `json:"id"`
 	Name     string `json:"name"`
-	IsEvent  int    `json:"isEvent"`
+	Type     int    `json:"type"`
 	Category string `json:"category,omitempty"`
 	Owner    string `json:"owner,omitempty"`
 }

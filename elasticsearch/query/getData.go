@@ -15,7 +15,7 @@ func Data(ctx context.Context, esclient *elastic.Client, name, category string) 
 		return queryEvent(ctx, esclient, name, category)
 	}
 
-	return queryUser(ctx, esclient, name)
+	return queryUserAndSquad(ctx, esclient, name)
 }
 
 func queryEvent(ctx context.Context, esclient *elastic.Client, name, category string) ([]elasticsearch.Model, error) {
@@ -41,7 +41,7 @@ func queryEvent(ctx context.Context, esclient *elastic.Client, name, category st
 	return result, nil
 }
 
-func queryUser(ctx context.Context, esclient *elastic.Client, name string) ([]elasticsearch.Model, error) {
+func queryUserAndSquad(ctx context.Context, esclient *elastic.Client, name string) ([]elasticsearch.Model, error) {
 	multiQuery := elastic.NewMultiMatchQuery(name, "name", "owner").Type("phrase_prefix")
 
 	searchResult, err := esclient.Search().Index("search_data").Query(multiQuery).Do(ctx)
