@@ -12,7 +12,6 @@ import (
 
 //InsertData - function to insert data into elastic database
 func InsertData(ctx context.Context, esclient *elastic.Client, name, id, category, owner string, Type int) error {
-
 	newEntry := elasticsearch.Model{
 		ID:       id,
 		Name:     name,

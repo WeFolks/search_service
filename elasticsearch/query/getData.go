@@ -20,21 +20,16 @@ func Data(ctx context.Context, esclient *elastic.Client, name, category string) 
 
 func queryEvent(ctx context.Context, esclient *elastic.Client, name, category string) ([]elasticsearch.Model, error) {
 	multiQuery := elastic.NewMultiMatchQuery(name, "name").Type("phrase_prefix")
-
 	matchQuery := elastic.NewMatchQuery("category", category)
 	query := elastic.NewBoolQuery().Must(multiQuery, matchQuery)
-
 	searchResult, err := esclient.Search().Index("search_data").Query(query).Do(ctx)
 	result := []elasticsearch.Model{}
-
 	if err != nil {
 		return result, err
 	}
-
 	for _, hit := range searchResult.Hits.Hits {
 		var response elasticsearch.Model
 		json.Unmarshal(hit.Source, &response)
-
 		result = append(result, response)
 	}
 

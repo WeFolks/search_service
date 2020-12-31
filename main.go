@@ -5,7 +5,6 @@ import (
 	"net"
 
 	"github.com/WeFolks/search_service/grpc"
-
 	g "google.golang.org/grpc"
 )
 
