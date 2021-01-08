@@ -19,7 +19,7 @@ func Data(ctx context.Context, esclient *elastic.Client, name, category string) 
 }
 
 func queryEvent(ctx context.Context, esclient *elastic.Client, name, category string) ([]elasticsearch.Model, error) {
-	multiQuery := elastic.NewMultiMatchQuery(name, "name").Type("phrase_prefix")
+	multiQuery := elastic.NewMultiMatchQuery(name, "name", "description").Type("phrase_prefix")
 	matchQuery := elastic.NewMatchQuery("category", category)
 	query := elastic.NewBoolQuery().Must(multiQuery, matchQuery)
 	searchResult, err := esclient.Search().Index("search_data").Query(query).Do(ctx)

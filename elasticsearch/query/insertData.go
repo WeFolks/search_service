@@ -11,13 +11,14 @@ import (
 )
 
 //InsertData - function to insert data into elastic database
-func InsertData(ctx context.Context, esclient *elastic.Client, name, id, category, owner string, Type int) error {
+func InsertData(ctx context.Context, esclient *elastic.Client, name, id, category, owner, description string, Type int) error {
 	newEntry := elasticsearch.Model{
-		ID:       id,
-		Name:     name,
-		Category: category,
-		Owner:    owner,
-		Type:     Type,
+		ID:          id,
+		Name:        name,
+		Category:    category,
+		Owner:       owner,
+		Type:        Type,
+		Description: description,
 	}
 
 	dataJSON, err := json.Marshal(newEntry)

@@ -24,11 +24,12 @@ func (s *Server) GetItems(ctx context.Context, message *SearchRequest) (*SearchR
 	items := []*Item{}
 	for _, element := range result {
 		item := Item{
-			Id:       element.ID,
-			Name:     element.Name,
-			Category: element.Category,
-			Owner:    element.Owner,
-			Type:     int32(element.Type),
+			Id:          element.ID,
+			Name:        element.Name,
+			Category:    element.Category,
+			Owner:       element.Owner,
+			Type:        int32(element.Type),
+			Description: element.Description,
 		}
 		items = append(items, &item)
 	}
@@ -44,7 +45,7 @@ func (s *Server) AddItem(ctx context.Context, message *Item) (*Response, error) 
 		}
 		return &response, err
 	}
-	err = query.InsertData(ctx, client, message.Name, message.Id, message.Category, message.Owner, int(message.Type))
+	err = query.InsertData(ctx, client, message.Name, message.Id, message.Category, message.Owner, message.Description, int(message.Type))
 	if err != nil {
 		response := Response{
 			Error: 1,

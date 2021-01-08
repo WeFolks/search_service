@@ -1,14 +1,36 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net"
+	"net/http"
 
+	"github.com/WeFolks/search_service/api"
+	"github.com/WeFolks/search_service/elasticsearch"
 	"github.com/WeFolks/search_service/grpc"
 	g "google.golang.org/grpc"
 )
 
 func main() {
+
+	go func() {
+		client, err := elasticsearch.GetESClient()
+
+		if err != nil {
+			log.Fatal("Elastic Search client can't be setup", err)
+			return
+		}
+
+		http.Handle("/search", api.GetData(client))
+		err = http.ListenAndServe(":8080", nil)
+
+		if err != nil {
+			log.Fatal("Error starting server:", err)
+		}
+		fmt.Printf("HTTP server hosted on port 8080")
+	}()
+
 	lis, err := net.Listen("tcp", ":9000")
 	if err != nil {
 		log.Fatalf("Failed to listen on port 9000: %v", err)
