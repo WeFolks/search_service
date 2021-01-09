@@ -18,7 +18,7 @@ type Body struct {
 
 //Result - struct for response
 type Result struct {
-	ID          string `json:"_id`
+	ID          string `json:"_id"`
 	Name        string `json:"name"`
 	Category    string `json:"category"`
 	Owner       string `json:"owner"`
