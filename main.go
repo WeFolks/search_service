@@ -9,6 +9,7 @@ import (
 	"github.com/WeFolks/search_service/api"
 	"github.com/WeFolks/search_service/elasticsearch"
 	"github.com/WeFolks/search_service/grpc"
+	"github.com/WeFolks/search_service/middleware"
 	g "google.golang.org/grpc"
 )
 
@@ -22,7 +23,7 @@ func main() {
 			return
 		}
 
-		http.Handle("/search", api.GetData(client))
+		http.Handle("/search", middleware.LogReq(api.GetData(client)))
 		err = http.ListenAndServe(":8080", nil)
 
 		if err != nil {
