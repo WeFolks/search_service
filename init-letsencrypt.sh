@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(search.digitaldrive.live)
+domains=(search.locaid.in)
 rsa_key_size=4096
 data_path="./data/certbot"
 email="vishwaspuri09@gmail.com" # Adding a valid address is strongly recommended
