@@ -1,15 +1,6 @@
 version: '3'
 
 services:
-    search_server:
-        container_name: search_server
-        restart: unless-stopped
-        build:
-            dockerfile: Dockerfile
-            context: .
-        ports:
-            -   8080:8080
-            -   9000:9000
     elasticsearch:
         container_name: elasticsearch
         image: elasticsearch:6.8.8
@@ -25,6 +16,17 @@ services:
             -   9200:9200
         volumes:
             -   elasticsearch:/usr/share/elasticsearch/data
+    search_server:
+        container_name: search_server
+        restart: unless-stopped
+        build:
+            dockerfile: Dockerfile
+            context: .
+        ports:
+            -   8080:8080
+            -   9000:9000
+        depends_on: 
+            -   elasticsearch
     nginx:
         container_name: nginx
         depends_on:
