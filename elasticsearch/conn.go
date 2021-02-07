@@ -18,8 +18,7 @@ type Model struct {
 
 // GetESClient - gives the connection to elastic search server
 func GetESClient() (*elastic.Client, error) {
-	// client, err := elastic.NewClient(elastic.SetURL("https://ybbi0yxgfo:mfxydz395k@folks-cluster-770698183.us-east-1.bonsaisearch.net:443"), elastic.SetSniff(false))
-	client, err := elastic.NewClient(elastic.SetURL("elasticsearch:9200"), elastic.SetSniff(false))
+	client, err := elastic.NewClient(elastic.SetURL("http://elastic:Wethefolks@123@lb-uzja7dl7ropiy.centralindia.cloudapp.azure.com:9200"), elastic.SetHealthcheck(false), elastic.SetSniff(false))
 
 	fmt.Println("ES initialized")
 

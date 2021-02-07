@@ -1,21 +1,6 @@
 version: '3'
 
 services:
-    elasticsearch:
-        container_name: elasticsearch
-        image: elasticsearch:6.8.8
-        environment:
-            - cluster.name=docker-cluster
-            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-            - ES_NETWORK_HOST="0.0.0.0"
-        ulimits:
-            memlock:
-                soft: -1
-                hard: -1
-        ports:
-            -   9200:9200
-        volumes:
-            -   elasticsearch:/usr/share/elasticsearch/data
     search_server:
         container_name: search_server
         restart: unless-stopped
@@ -25,8 +10,6 @@ services:
         ports:
             -   8080:8080
             -   9000:9000
-        depends_on: 
-            -   elasticsearch
     nginx:
         container_name: nginx
         depends_on:
@@ -51,5 +34,3 @@ services:
         -   ./data/certbot/conf:/etc/letsencrypt
         -   ./data/certbot/www:/var/www/certbot
         entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-volumes:
-    elasticsearch:
